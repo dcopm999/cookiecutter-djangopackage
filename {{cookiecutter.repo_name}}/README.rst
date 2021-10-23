@@ -31,7 +31,7 @@ Add it to your `INSTALLED_APPS`:
 
     INSTALLED_APPS = (
         ...
-        '{{ cookiecutter.app_name }}.apps.{{ cookiecutter.app_config_name }}',
+        '{{ cookiecutter.app_name }}',
         ...
     )
 
@@ -39,12 +39,9 @@ Add {{ cookiecutter.project_name }}'s URL patterns:
 
 .. code-block:: python
 
-    from {{ cookiecutter.app_name }} import urls as {{ cookiecutter.app_name }}_urls
-
-
     urlpatterns = [
         ...
-        url(r'^', include({{ cookiecutter.app_name }}_urls)),
+        path('{{ cookiecutter.app_name }}/', include('{{ cookiecutter.app_name }}.urls')),
         ...
     ]
 
