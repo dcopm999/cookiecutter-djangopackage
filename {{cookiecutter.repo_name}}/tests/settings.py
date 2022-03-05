@@ -112,3 +112,51 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+# LOGGING
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#logging
+# See https://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s "
+            "%(process)d %(thread)d %(message)s"
+        },
+        "django": {"format": "rospatent_nis.%(module)s %(levelname)s %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "syslog": {
+            "class": "logging.handlers.SysLogHandler",
+            "formatter": "django",
+            "facility": "local7",
+            "address": "/dev/log",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "level": "DEBUG",
+            "handlers": ["console", "syslog"],
+        },
+        "django.security": {
+            "level": "DEBUG",
+            "handlers": ["console" ,"syslog"],
+        },
+        "{{ cookiecutter.app_name }}": {
+            "level": "DEBUG",
+            "handlers": ["console", "syslog"],
+        },
+    },
+}
